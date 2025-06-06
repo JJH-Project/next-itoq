@@ -1,21 +1,25 @@
-import { DATABASE_ID, TOKEN } from '../config'
-import SystemItem from '../components/systems/systemItem'
+import { DATABASE_ID, TOKEN } from '@/app/config'
+import SystemItem from '@/app/components/systems/systemItem'
+import { SystemPageType } from '@/app/types/system'
 
 async function getNotionData() {
     const options = {
         method: 'POST',
         headers: {
-        accept: 'application/json',
-        'Notion-Version': '2022-06-28',
-        'content-type': 'application/json',
-        authorization: `Bearer ${TOKEN}`,
+            accept: 'application/json',
+            'Notion-Version': '2022-06-28',
+            'content-type': 'application/json',
+            authorization: `Bearer ${TOKEN}`,
         },
         body: JSON.stringify({ page_size: 100 }),
     };
 
     const res = await fetch(
         `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
-        options
+        {
+            ...options,
+            cache: 'no-store'
+        }
     );
 
     if (!res.ok) {
@@ -25,11 +29,10 @@ async function getNotionData() {
     const result = await res.json();
     const data = result.results.slice(1);
     
-    return data;
-    }
+    return data as SystemPageType[];
+}
 
-    export default async function SystemPage() {
-
+export default async function SystemPage() {
     const data = await getNotionData();
 
     return (
@@ -39,7 +42,7 @@ async function getNotionData() {
                 <section className="text-gray-600 body-font">
                     <div className="container px-5 py-24 mx-auto">
                         <div className="flex flex-wrap -m-4">
-                            {data.map((aProject: any) => (
+                            {data.map((aProject) => (
                                 <SystemItem key={aProject.id} data={aProject} />
                             ))}
                         </div>
