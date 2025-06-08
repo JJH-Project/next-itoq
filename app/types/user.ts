@@ -1,18 +1,23 @@
-export interface SystemPage {
+export interface UserPage {
     id: string;
     properties: {
-        title: {
+        name: {
             title: Array<{
                 plain_text: string;
             }>;
         };
-        contents: {
+        email: {
             rich_text: Array<{
                 plain_text: string;
             }>;
         };
-        image?: {
+        password: {
             rich_text: Array<{
+                plain_text: string;
+            }>;
+        };
+        role: {
+            title: Array<{
                 plain_text: string;
             }>;
         };

@@ -1,10 +1,10 @@
-import { SystemPage } from '@/app/types/system';
+import  type { NotionUserPage } from '@/app/api/user/user';
 
-interface SystemItemProps {
-    data: SystemPage;
+interface UserItemProps {
+    data: NotionUserPage;
 }
 
-export default function SystemItem({ data }: SystemItemProps) {
+export default function UserItem({ data }: UserItemProps) {
     const title = data.properties.title.title[0]?.plain_text || 'No title';
     const contents = data.properties.contents.rich_text[0]?.plain_text || 'No contents';
     const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || 'https://placehold.co/600x400';

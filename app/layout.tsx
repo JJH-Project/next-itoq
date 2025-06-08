@@ -28,7 +28,9 @@ const geistSans = Geist({
         <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <Header />
-            {children}
+            <main className="min-h-screen p-8">
+                {children}
+            </main>
             <Footer />
         </body>
         </html>
