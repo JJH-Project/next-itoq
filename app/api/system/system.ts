@@ -1,7 +1,6 @@
 'use server'
 
 import { Client } from '@notionhq/client';
-// import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { v2 as cloudinary } from 'cloudinary';
 import { SystemPage } from '@/app/types/system';
 

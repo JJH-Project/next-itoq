@@ -1,109 +1,215 @@
 'use client';
 
+import { Client } from '@notionhq/client';
 import { useState } from 'react';
-import ImageUpload from './imageUpload';
 import { getMessage } from '@/app/utils/messages';
+import { ROLE_NAME } from '@/app/utils/enums';
 
 interface UserFormProps {
-    initialTitle?: string;
-    initialContents?: string;
-    initialImageUrl?: string | null;
+    initialName?: string;
+    initialEmail?: string;
+    initialRole?: string;
     isSubmitting: boolean;
     onSubmit: (formData: FormData) => Promise<void>;
     onCancel: () => void;
+    isEdit?: boolean;
+    isCreate?: boolean;
+    isAccount?: boolean;
 }
 
 export default function UserForm({
-    initialTitle = '',
-    initialContents = '',
-    initialImageUrl = null,
+    initialName = '',
+    initialEmail = '',
+    initialRole = 'user',
     isSubmitting,
     onSubmit,
-    onCancel
+    onCancel,
+    isEdit = false,
+    isCreate = false,
+    isAccount = false,
 }: UserFormProps) {
-    const [title, setTitle] = useState(initialTitle);
-    const [contents, setContents] = useState(initialContents);
-    const [image, setImage] = useState<File | null>(null);
-    const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(initialImageUrl);
-    const [titleError, setTitleError] = useState<string | null>(null);
-    const [contentsError, setContentsError] = useState<string | null>(null);
+    const [name, setName] = useState(initialName);
+    const [email, setEmail] = useState(initialEmail);
+    const [role, setRole] = useState(initialRole);
+    const [password, setPassword] = useState('');
+    const [nameError, setNameError] = useState<string | null>(null);
+    const [emailError, setEmailError] = useState<string | null>(null);
+    const [roleError, setRoleError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
 
-    const handleImageSelect = (file: File | null) => {
-        setImage(file);
-    };
+    // set notion
+    const notion = new Client({
+        auth: process.env.NOTION_TOKEN,
+    });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // check validation
-        if (!title) {
-            setTitleError(getMessage('validation.title.required'));
+        if (!email) {
+            setEmailError(getMessage('validation.email.required'));
+            return;
+        } 
+        if (email && isCreate) {
+            const isUnique = await checkEmailUnique();
+            if (!isUnique) {
+                setEmailError(getMessage('validation.email.unique'));
+                return;
+            } else {
+                setEmailError('');
+            }
+        }
+                
+        if (!name || name.trim() === '') {
+            setNameError(getMessage('validation.name.required'));
             return;
         }
-        if (!contents) {
-            setContentsError(getMessage('validation.contents.required'));
+        if (!password && isCreate) {
+            setPasswordError(getMessage('validation.password.required'));
+            return;
+        }
+        if (password && isCreate) {
+            console.log(password);
+            const passwordRule =
+                /^(?=.*[a-zA-Z])(?=.*[\d\W_]).{8,}$/;
+        
+            if (!passwordRule.test(password)) {
+                setPasswordError(getMessage('validation.password.rule')); 
+                return;
+            }
+        }
+        if (!role && !isAccount) {
+            setRoleError(getMessage('validation.role.required'));
             return;
         }
 
         const formData = new FormData();
-        formData.append('title', title);
-        formData.append('contents', contents);
-        if (image) {
-            formData.append('image', image);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('role', role);
+        if (isCreate) {
+            formData.append('password', password);
         }
 
         await onSubmit(formData);
     };
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newTitle = e.target.value;
-        setTitle(newTitle);
-        setTitleError(null);
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newName = e.target.value;
+        setName(newName);
+        setNameError(null);
     };
 
-    const handleContentsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newContents = e.target.value;
-        setContents(newContents);
-        setContentsError(null);
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newEmail = e.target.value;
+        setEmail(newEmail);
+        setEmailError(null);
+    };
+
+    const checkEmailUnique = async () => {
+        try {
+            const res = await fetch(`/api/check-email?email=${encodeURIComponent(email)}`);
+            const data = await res.json();
+
+            return data.unique;
+        } catch (error) {
+            console.error('Error checking email:', error);
+            setEmailError('エラーが発生しました');
+        }
+    };
+
+    const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newRole = e.target.value;
+        setRole(newRole);
+        setRoleError(null);
+    };
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        setPasswordError(null);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 w-full md:w-2/3 lg:w-1/2 mx-auto">
+        <form onSubmit={handleSubmit} className="space-y-6 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto">
             <div className="relative mb-4">
                 <div className="leading-7 text-gray-800 font-bold mb-2">
-                    {getMessage('common.title')}
+                    {getMessage('common.email')}
+                    <span className="text-red-500 text-xl"> *</span>
+                </div>
+                {!isAccount && <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    disabled={isEdit}
+                />}
+                {isAccount && <p className="text-gray-800">{email}</p>}
+                {emailError && (
+                    <p className="mt-1 text-red-500">{emailError}</p>
+                )}
+            </div>
+            <div className="relative mb-4">
+                <div className="leading-7 text-gray-800 font-bold mb-2">
+                    {getMessage('common.name')}
                     <span className="text-red-500 text-xl"> *</span>
                 </div>
                 <input
                     type="text"
-                    name="title"
-                    value={title}
-                    onChange={handleTitleChange}
+                    name="name"
+                    value={name}
+                    onChange={handleNameChange}
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                {titleError && (
-                    <p className="mt-1 text-red-500">{titleError}</p>
+                {nameError && (
+                    <p className="mt-1 text-red-500">{nameError}</p>
                 )}
             </div>
+            {isCreate && (
+                <div className="relative mb-4">
+                    <div className="leading-7 text-gray-800 font-bold mb-2">
+                        {getMessage('common.password')}
+                        <span className="text-red-500 text-xl"> *</span>
+                    </div>
+                    <input
+                        type="text"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {passwordError && (
+                        <p className="mt-1 text-red-500">{passwordError}</p>
+                    )}
+                </div>
+            )}
             <div className="relative mb-4">
                 <div className="leading-7 text-gray-800 font-bold mb-2">
-                    {getMessage('common.contents')}
+                    {getMessage('common.role')}
                     <span className="text-red-500 text-xl"> *</span>
                 </div>
-                <textarea
-                    id="contents" 
-                    name="contents" 
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 p-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                    value={contents}
-                    onChange={handleContentsChange}
-                ></textarea>
-                {contentsError && (
-                    <p className="mt-1 text-red-500">{contentsError}</p>
+                {!isAccount && (
+                    <select
+                        name="role"
+                        value={role}
+                        onChange={handleRoleChange}
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        {Object.entries(ROLE_NAME).map(([key, label]) => (
+                            <option key={key} value={key}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                )}
+                {isAccount && (
+                    <p className="text-gray-800">{ROLE_NAME[role as keyof typeof ROLE_NAME]}</p>
+                )}
+                {roleError && (
+                    <p className="mt-1 text-red-500">{roleError}</p>
                 )}
             </div>
-            <div className="relative mb-4">
-                <ImageUpload onImageSelect={handleImageSelect} currentImageUrl={currentImageUrl}/>
-            </div>
+
             <div className="flex justify-end space-x-4 w-full sm:w-1/2 mx-auto">
                 <button
                     type="button"

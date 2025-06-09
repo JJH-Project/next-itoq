@@ -45,7 +45,7 @@ export default function SystemListItem({ item, onDelete }: SystemListItemProps) 
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-md font-medium flex justify-center gap-2">
                 <button 
-                    className="border border-gray-400 px-3 py-2 rounded-md hover:text-gray-400"
+                    className="border text-blue-600 border-blue-400 px-3 py-2 rounded-md hover:text-blue-600"
                     onClick={() => router.push(`/admin/system/${item.id}`)}
                 >
                     {getMessage('common.edit')}

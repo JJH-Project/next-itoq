@@ -1,9 +1,8 @@
 'use server'
 
 import { Client } from '@notionhq/client';
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { v2 as cloudinary } from 'cloudinary';
-import { UserPage } from '@/app/types/user';
+import type { UserPage } from '@/app/types/user';
 
 // set cloudinary
 cloudinary.config({
@@ -17,7 +16,7 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
 
-const DATABASE_ID = process.env.NOTION_DATABASE_ID;
+const DATABASE_ID = process.env.NOTION_USER_DATABASE_ID;
 
 // get user data
 export async function getUserData() {
@@ -31,9 +30,9 @@ export async function getUserData() {
                 return {
                     id: page.id,
                     properties: {
-                        title: page.properties.title as UserPage['properties']['title'],
-                        contents: page.properties.contents as UserPage['properties']['contents'],
-                        image: page.properties.image as UserPage['properties']['image']
+                        name: page.properties.name as UserPage['properties']['name'],
+                        email: page.properties.email as UserPage['properties']['email'],
+                        role: page.properties.role as UserPage['properties']['role']
                     }
                 }
             }
@@ -48,63 +47,44 @@ export async function getUserData() {
 // create user
 export const createUser = async (formData: FormData) => {
     try {
-        const title = formData.get('title')?.toString() || ''
-        const contents = formData.get('contents')?.toString() || ''
-        const imageFile = formData.get('image') as File | null
-
-        let imageUrl = ''
-        if (imageFile && imageFile instanceof File) {
-            const bytes = await imageFile.arrayBuffer()
-            const buffer = Buffer.from(bytes)
-            
-            const uploadResponse = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    {
-                        folder: 'itoq/users',
-                        resource_type: 'auto'
-                    },
-                    (error, result) => {
-                        if (error) reject(error)
-                        else resolve(result)
-                    }
-                ).end(buffer)
-            })
-
-            imageUrl = (uploadResponse as any).secure_url
-        }
+        const name = formData.get('name')?.toString() || ''
+        const email = formData.get('email')?.toString() || ''
+        const role = formData.get('role')?.toString() || ''
+        const password = formData.get('password')?.toString() || ''
 
         const response = await notion.pages.create({
             parent: { database_id: DATABASE_ID! },
             properties: {
-                title: {
+                name: {
                     title: [
                         {
                             text: {
-                                content: title
+                                content: name
                             }
                         }
                     ]
                 },
-                contents: {
+                email: {
+                    email: email
+                },
+                role: {
                     rich_text: [
                         {
                             text: {
-                                content: contents
+                                content: role
                             }
                         }
                     ]
                 },
-                ...(imageUrl && {
-                    image: {
-                        rich_text: [
-                            {
-                                text: {
-                                    content: imageUrl
-                                }
+                password: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: password
                             }
-                        ]
-                    }
-                })
+                        }
+                    ]
+                }
             }
         })
 
@@ -140,9 +120,9 @@ export async function getUserById(id: string) {
             return {
                 id: response.id,
                 properties: {
-                    title: response.properties.title as UserPage['properties']['title'],
-                    contents: response.properties.contents as UserPage['properties']['contents'],
-                    image: response.properties.image as UserPage['properties']['image']
+                    name: response.properties.name as UserPage['properties']['name'],
+                    email: response.properties.email as UserPage['properties']['email'],
+                    role: response.properties.role as UserPage['properties']['role']
                 }
             };
         }
@@ -156,63 +136,34 @@ export async function getUserById(id: string) {
 // update user
 export async function updateUser(id: string, formData: FormData) {
     try {
-        const title = formData.get('title')?.toString() || ''
-        const contents = formData.get('contents')?.toString() || ''
-        const imageFile = formData.get('image') as File | null
-
-        let imageUrl = ''
-        if (imageFile && imageFile instanceof File) {
-            const bytes = await imageFile.arrayBuffer()
-            const buffer = Buffer.from(bytes)
-
-            const uploadResponse = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    {
-                        folder: 'itoq/',
-                        resource_type: 'auto'
-                    },
-                    (error, result) => {
-                        if (error) reject(error)
-                        else resolve(result)
-                    }
-                ).end(buffer)
-            })
-
-            imageUrl = (uploadResponse as any).secure_url
-        }
+        const name = formData.get('name')?.toString() || ''
+        const email = formData.get('email')?.toString() || ''
+        const role = formData.get('role')?.toString() || ''
 
         const response = await notion.pages.update({
             page_id: id,
             properties: {
-                title: {
+                name: {
                     title: [
                         {
                             text: {
-                                content: title
+                                content: name
                             }
                         }
                     ]
                 },
-                contents: {
+                email: {
+                    email: email
+                },
+                role: {
                     rich_text: [
                         {
                             text: {
-                                content: contents
+                                content: role
                             }
                         }
                     ]
-                },
-                ...(imageUrl && {
-                    image: {
-                        rich_text: [
-                            {
-                                text: {
-                                    content: imageUrl
-                                }
-                            }
-                        ]
-                    }
-                })
+                }
             }
         })
 

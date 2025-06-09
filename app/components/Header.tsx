@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { getMessage } from '@/app/utils/messages';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,13 +44,16 @@ export default function Header() {
                         Home
                     </Link>
                     <Link href="/system" className="hover:text-gray-600">
-                        System
+                        {getMessage('common.system')}
                     </Link>
                     <Link href="/contact" className="hover:text-gray-600">
-                        Contact
+                        {getMessage('common.contact')}
                     </Link>
-                    <Link href="/mypage" className="hover:text-gray-600">
-                        Mypage
+                    <Link href="/account" className="hover:text-gray-600">
+                        {getMessage('common.account')}
+                    </Link>
+                    <Link href="/login" className="hover:text-gray-600">
+                        {getMessage('common.login')}
                     </Link>
                     <div className="relative">
                         <button
@@ -77,25 +81,25 @@ export default function Header() {
                             <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 <div className="py-1">
                                     <Link
-                                        href="/admin/users"
-                                        className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
-                                        onClick={() => setIsAdminOpen(false)}
-                                    >
-                                        Users管理
-                                    </Link>
-                                    <Link
                                         href="/admin/system"
                                         className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
                                         onClick={() => setIsAdminOpen(false)}
                                     >
-                                        System管理
+                                        {getMessage('common.systems')}
+                                    </Link>
+                                    <Link
+                                        href="/admin/users"
+                                        className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
+                                        onClick={() => setIsAdminOpen(false)}
+                                    >
+                                        {getMessage('common.users')}
                                     </Link>
                                     <Link
                                         href="/admin/contact"
                                         className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
                                         onClick={() => setIsAdminOpen(false)}
                                     >
-                                        Contact管理
+                                        {getMessage('common.contact')}
                                     </Link>
                                 </div>
                             </div>
@@ -103,50 +107,50 @@ export default function Header() {
                     </div>
                 </div>
 
-                {/* 모바일 메뉴 */}
+                {/* mobile menu */}
                 <div
-                className={`${
+                    className={`${
                     isMenuOpen ? 'flex' : 'hidden'
-                } absolute top-16 right-0 left-0 flex-col space-y-4 border-b bg-white p-4 md:hidden`}
+                    } absolute top-16 right-0 left-0 flex-col space-y-4 border-b bg-white p-4 md:hidden`}
                 >
-                <Link href="/" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
-                    Home
-                </Link>
-                <Link href="/todo" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
-                    ToDo
-                </Link>
-                <Link href="/system" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
-                    System
-                </Link>
-                <Link href="/contact" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
-                    Contact
-                </Link>
-                <div className="space-y-2">
-                    <div className="font-medium">Admin</div>
-                    <div className="pl-4 space-y-2">
-                    <Link
-                        href="/admin"
-                        className="block hover:text-gray-600"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        대시보드
+                    <Link href="/" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
+                        Home
                     </Link>
-                    <Link
-                        href="/admin/system"
-                        className="block hover:text-gray-600"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        시스템 관리
+                    <Link href="/system" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
+                        {getMessage('common.system')}
                     </Link>
-                    <Link
-                        href="/admin/users"
-                        className="block hover:text-gray-600"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        사용자 관리
+                    <Link href="/contact" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
+                        {getMessage('common.contact')}
                     </Link>
+                    <Link href="/account" className="hover:text-gray-600" onClick={() => setIsMenuOpen(false)}>
+                        {getMessage('common.account')}
+                    </Link>
+                    <div className="space-y-2">
+                        <div className="font-medium">Admin</div>
+                        <div className="pl-4 space-y-2">
+                            <Link
+                                href="/admin/system"
+                                className="block hover:text-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {getMessage('common.systems')}
+                            </Link>
+                            <Link
+                                href="/admin/users"
+                                className="block hover:text-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {getMessage('common.users')}
+                            </Link>
+                            <Link
+                                href="/admin/contact"
+                                className="block hover:text-gray-600"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {getMessage('common.contacts')}
+                            </Link>
+                        </div>
                     </div>
-                </div>
                 </div>
             </nav>
         </header>

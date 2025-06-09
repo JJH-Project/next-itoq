@@ -28,7 +28,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
                 });
             } catch (error) {
                 console.error('Error fetching user:', error);
-                router.push('/admin/users');
+                router.push('/account');
             } finally {
                 setIsLoading(false);
             }
@@ -42,7 +42,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
         try {
             const result = await updateUser(id, formData);
             if (result.success) {
-                router.push('/admin/users');
+                router.push('/account');
             } else {
                 console.error('Failed to update user:', result.error);
             }
@@ -71,7 +71,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
 
     return (
         <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold mb-8">{getMessage('common.user')}編集</h1>
+            <h1 className="text-2xl font-bold mb-8">{getMessage('common.account')}</h1>
             <UserForm
                 initialName={initialData.name}
                 initialEmail={initialData.email}
@@ -79,7 +79,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
                 isSubmitting={isSubmitting}
                 onSubmit={handleSubmit}
                 onCancel={() => router.back()}
-                isEdit={true}
+                isAccount={true}
             />
         </div>
     );

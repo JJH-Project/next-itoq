@@ -7,17 +7,10 @@ export interface UserPage {
             }>;
         };
         email: {
-            rich_text: Array<{
-                plain_text: string;
-            }>;
-        };
-        password: {
-            rich_text: Array<{
-                plain_text: string;
-            }>;
+            email: string;
         };
         role: {
-            title: Array<{
+            rich_text: Array<{
                 plain_text: string;
             }>;
         };

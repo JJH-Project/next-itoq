@@ -5,6 +5,20 @@
     },
     "contents": {
       "required": "内容を入力してください"
+    },
+    "name": {
+      "required": "名前を入力してください"
+    },
+    "email": {
+      "required": "メールアドレスを入力してください",
+      "unique": "このメールアドレスはすでに使用されています"
+    },
+    "role":  {
+      "required": "権限を選択してください"
+    },
+    "password": {
+      "required": "パスワードを入力してください",
+      "rule": "8文字以上で、文字・数字または記号を含めてください"
     }
   },
   "common": {
@@ -20,7 +34,18 @@
     "contents": "内容",
     "image": "画像",
     "system": "社内制度",
-    "user": "ユーザー"
+    "user": "ユーザー",
+    "users": "ユーザー管理",
+    "systems": "社内制度管理",
+    "contact": "お問い合わせ",
+    "contacts": "お問い合わせ管理",
+    "account": "アカウント",
+    "name": "名前",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "role": "権限",
+    "login": "ログイン",
+    "logout": "ログアウト"
   }
 
 } 

@@ -1,5 +1,6 @@
 import { getSystemData, deleteSystemData } from '@/app/api/system/system'
 import Link from 'next/link'
+import type { SystemPage } from '@/app/types/system'
 import { revalidatePath } from 'next/cache'
 import SystemListItem from '@/app/components/systems/SystemListItem'
 import { getMessage } from '@/app/utils/messages'
@@ -22,7 +23,7 @@ export default async function AdminSystemPage() {
 
     return (
         <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold mb-8">{getMessage('common.system')}</h1>
+            <h1 className="text-2xl font-bold mb-8">{getMessage('common.systems')}</h1>
             <div className="flex justify-end my-5">
                 <Link 
                     href="/admin/system/create" 
@@ -44,7 +45,7 @@ export default async function AdminSystemPage() {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {data.map((item) => (
+                            {data.map((item: SystemPage) => (
                                 <SystemListItem 
                                     key={item.id} 
                                     item={item}

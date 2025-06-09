@@ -68,7 +68,7 @@ export default function SystemForm({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 w-full md:w-2/3 lg:w-1/2 mx-auto">
+        <form onSubmit={handleSubmit} className="space-y-6 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto">
             <div className="relative mb-4">
                 <div className="leading-7 text-gray-800 font-bold mb-2">
                     {getMessage('common.title')}
