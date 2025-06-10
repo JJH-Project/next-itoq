@@ -13,3 +13,10 @@ export enum SUCCES_STATUS {
     false = "エラー終了"
 }
 
+export enum FORM_TITLE {
+    TITLE1 = '採用について',
+    TITLE2 = '案件について',
+    TITLE3 = '仕事の依頼について',
+    TITLE4 = 'その他'
+}
+

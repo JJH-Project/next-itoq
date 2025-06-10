@@ -79,7 +79,7 @@ export default function SystemForm({
                     name="title"
                     value={title}
                     onChange={handleTitleChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {titleError && (
                     <p className="mt-1 text-red-500">{titleError}</p>
@@ -93,7 +93,7 @@ export default function SystemForm({
                 <textarea
                     id="contents" 
                     name="contents" 
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 p-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 p-4 resize-none leading-6 transition-colors duration-200 ease-in-out"
                     value={contents}
                     onChange={handleContentsChange}
                 ></textarea>
@@ -108,14 +108,14 @@ export default function SystemForm({
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="w-full px-6 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
                 >
-                    {getMessage('common.cancel')}
+                    {getMessage('common.back')}
                 </button>
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:opacity-50"
+                    className="w-full px-6 py-3 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:opacity-50"
                 >
                     {isSubmitting ? getMessage('common.saving') : getMessage('common.save')}
                 </button>

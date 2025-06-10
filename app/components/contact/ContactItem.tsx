@@ -1,10 +1,10 @@
-import { SystemPage } from '@/app/types/system';
+import  type { NotionUserPage } from '@/app/api/user/user';
 
-interface SystemItemProps {
-    data: SystemPage;
+interface UserItemProps {
+    data: NotionUserPage;
 }
 
-export default function SystemItem({ data }: SystemItemProps) {
+export default function UserItem({ data }: UserItemProps) {
     const title = data.properties.title.title[0]?.plain_text || 'No title';
     const contents = data.properties.contents.rich_text[0]?.plain_text || 'No contents';
     const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || 'https://placehold.co/600x400';
@@ -22,7 +22,7 @@ export default function SystemItem({ data }: SystemItemProps) {
                 <h2 className="tracking-widest text-indigo-500 text-lg font-medium title-font pb-4 font-bold">
                     {title}
                 </h2>
-                <p className="leading-relaxed text-base whitespace-pre-line">
+                <p className="leading-relaxed text-base">
                     {contents}
                 </p>
             </div>

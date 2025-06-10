@@ -1,51 +1,76 @@
 {
-  "validation": {
-    "title": {
-      "required": "タイトルを入力してください"
+    "validation": {
+        "title": {
+            "required": "タイトルを入力してください"
+        },
+        "contents": {
+            "required": "内容を入力してください"
+        },
+        "name": {
+            "required": "名前を入力してください"
+        },
+        "email": {
+            "required": "メールアドレスを入力してください",
+            "unique": "このメールアドレスはすでに使用されています"
+        },
+        "role":  {
+            "required": "権限を選択してください"
+        },
+        "password": {
+            "required": "パスワードを入力してください",
+            "rule": "8文字以上で、文字・数字または記号を含めてください"
+        },
+        "emailPassword": {
+            "required": "メールアドレスとパスワードを入力してください"
+        },
+        "formTitle": {
+            "required": "お問い合わせ種別を選択してください"
+        },
+        "notAuthorized": "ユーザー情報が一致しません"
     },
-    "contents": {
-      "required": "内容を入力してください"
-    },
-    "name": {
-      "required": "名前を入力してください"
-    },
-    "email": {
-      "required": "メールアドレスを入力してください",
-      "unique": "このメールアドレスはすでに使用されています"
-    },
-    "role":  {
-      "required": "権限を選択してください"
-    },
-    "password": {
-      "required": "パスワードを入力してください",
-      "rule": "8文字以上で、文字・数字または記号を含めてください"
+    "common": {
+        "submit": "送信",
+        "cancel": "キャンセル",
+        "create": "新規作成",
+        "save": "保存",
+        "saving": "保存中...",
+        "delete": "削除",
+        "deleting": "削除中...",
+        "edit": "編集",
+        "title": "タイトル",
+        "contents": "内容",
+        "image": "画像",
+        "system": "社内制度",
+        "user": "ユーザー",
+        "users": "ユーザー管理",
+        "systems": "社内制度管理",
+        "contact": "お問い合わせ",
+        "contacts": "お問い合わせ管理",
+        "account": "アカウント",
+        "name": "名前",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "role": "権限",
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "loginError": "ログインに失敗しました",
+        "error": "エラーが発生しました",
+        "success": "送信が完了しました",
+        "failed": "送信に失敗しました",
+        "contactSuccess": "お問い合わせが完了しました",
+        "contactFailed": "お問い合わせに失敗しました",
+        "formTitle": "お問い合わせ種別",
+        "sending": "送信中...",
+        "send": "送信",
+        "view": "詳細",
+        "back": "戻る",
+        "successTitle": "Success!",
+        "successSave": "保存されました",
+        "successConfirmButtonText": "OK",
+        "errorConfirmButtonText": "OK",
+        "successSend": "送信されました",
+        "errorTitle": "Error!",
+        "errorFetch": "ユーザー情報の取得に失敗しました",
+        "register": "登録"
     }
-  },
-  "common": {
-    "submit": "送信",
-    "cancel": "キャンセル",
-    "create": "新規作成",
-    "save": "保存",
-    "saving": "保存中...",
-    "delete": "削除",
-    "deleting": "削除中...",
-    "edit": "編集",
-    "title": "タイトル",
-    "contents": "内容",
-    "image": "画像",
-    "system": "社内制度",
-    "user": "ユーザー",
-    "users": "ユーザー管理",
-    "systems": "社内制度管理",
-    "contact": "お問い合わせ",
-    "contacts": "お問い合わせ管理",
-    "account": "アカウント",
-    "name": "名前",
-    "email": "メールアドレス",
-    "password": "パスワード",
-    "role": "権限",
-    "login": "ログイン",
-    "logout": "ログアウト"
-  }
-
-} 
+}

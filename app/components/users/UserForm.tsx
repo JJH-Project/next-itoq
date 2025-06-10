@@ -141,10 +141,10 @@ export default function UserForm({
                     name="email"
                     value={email}
                     onChange={handleEmailChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     disabled={isEdit}
                 />}
-                {isAccount && <p className="text-gray-800">{email}</p>}
+                {isAccount && <p className="text-gray-800 pb-6 border-b">{email}</p>}
                 {emailError && (
                     <p className="mt-1 text-red-500">{emailError}</p>
                 )}
@@ -159,7 +159,7 @@ export default function UserForm({
                     name="name"
                     value={name}
                     onChange={handleNameChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {nameError && (
                     <p className="mt-1 text-red-500">{nameError}</p>
@@ -176,7 +176,7 @@ export default function UserForm({
                         name="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     {passwordError && (
                         <p className="mt-1 text-red-500">{passwordError}</p>
@@ -193,7 +193,7 @@ export default function UserForm({
                         name="role"
                         value={role}
                         onChange={handleRoleChange}
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-4  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         {Object.entries(ROLE_NAME).map(([key, label]) => (
                             <option key={key} value={key}>
@@ -203,7 +203,7 @@ export default function UserForm({
                     </select>
                 )}
                 {isAccount && (
-                    <p className="text-gray-800">{ROLE_NAME[role as keyof typeof ROLE_NAME]}</p>
+                    <p className="text-gray-800 pb-6 border-b">{ROLE_NAME[role as keyof typeof ROLE_NAME]}</p>
                 )}
                 {roleError && (
                     <p className="mt-1 text-red-500">{roleError}</p>
@@ -214,14 +214,14 @@ export default function UserForm({
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="w-full px-6 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-700 hover:bg-gray-50"
                 >
-                    {getMessage('common.cancel')}
+                    {getMessage('common.back')}
                 </button>
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:opacity-50"
+                    className="w-full px-6 py-3 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:opacity-50"
                 >
                     {isSubmitting ? getMessage('common.saving') : getMessage('common.save')}
                 </button>

@@ -22,12 +22,12 @@ export default async function AdminUserPage() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full  mx-auto">
             <h1 className="text-2xl font-bold mb-8">{getMessage('common.users')}</h1>
             <div className="flex justify-end my-5">
                 <Link 
                     href="/admin/users/create" 
-                    className="bg-gray-800 text-white px-6 py-2 rounded hover:bg-opacity-90"
+                    className="bg-gray-800 text-white px-6 py-3 rounded hover:bg-opacity-90"
                 >
                     {getMessage('common.create')}
                 </Link>

@@ -3,6 +3,7 @@
 import { Client } from '@notionhq/client';
 import { v2 as cloudinary } from 'cloudinary';
 import type { UserPage } from '@/app/types/user';
+import bcrypt from 'bcryptjs';
 
 // set cloudinary
 cloudinary.config({
@@ -15,7 +16,6 @@ cloudinary.config({
 const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
-
 const DATABASE_ID = process.env.NOTION_USER_DATABASE_ID;
 
 // get user data
@@ -52,6 +52,8 @@ export const createUser = async (formData: FormData) => {
         const role = formData.get('role')?.toString() || ''
         const password = formData.get('password')?.toString() || ''
 
+        const hashedPassword = await bcrypt.hash(password, 10); // 10: salt rounds
+
         const response = await notion.pages.create({
             parent: { database_id: DATABASE_ID! },
             properties: {
@@ -80,7 +82,7 @@ export const createUser = async (formData: FormData) => {
                     rich_text: [
                         {
                             text: {
-                                content: password
+                                content: hashedPassword
                             }
                         }
                     ]

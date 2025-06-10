@@ -27,7 +27,7 @@ export default function AdminUserCreatePage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full  mx-auto">
             <h1 className="text-2xl font-bold mb-8">{getMessage('common.user')}作成</h1>
             <UserForm
                 isSubmitting={isSubmitting}

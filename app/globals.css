@@ -15,10 +15,10 @@
     }
     .border-i-color {
         border-color: var(--i-color);
-}
+    }
     .hover\:i-color:hover {
         color: var(--i-color);
-  }
+    }
     .hover\:bg-i-color:hover {
         background-color: var(--i-color);
     }
