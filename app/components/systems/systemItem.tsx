@@ -10,7 +10,7 @@ export default function SystemItem({ data }: SystemItemProps) {
     const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || 'https://placehold.co/600x400';
 
     return (
-        <div className="xl:w-1/3 md:w-1/2 sm:w-full p-4">
+        <div className="xl:w-1/4 lg:w-1/3 md:w-1/2 sm:w-full p-4">
             <div className="bg-gray-100 p-6 rounded-lg">
                 <div className="relative h-40 w-full mb-6">
                     <img
