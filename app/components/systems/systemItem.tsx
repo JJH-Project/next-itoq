@@ -7,7 +7,7 @@ interface SystemItemProps {
 export default function SystemItem({ data }: SystemItemProps) {
     const title = data.properties.title.title[0]?.plain_text || 'No title';
     const contents = data.properties.contents.rich_text[0]?.plain_text || 'No contents';
-    const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || 'https://placehold.co/600x400';
+    const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || '';
 
     return (
         <div className="xl:w-1/4 lg:w-1/3 md:w-1/2 sm:w-full p-4">
