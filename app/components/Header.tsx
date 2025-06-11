@@ -11,10 +11,6 @@ export default function Header() {
     const [isAdminOpen, setIsAdminOpen] = useState(false);
     const { data: session, status } = useSession();
 
-    if (status === "loading") {
-        return <div>Loading...</div>;
-    }
-
     return (
         <header className="w-full border-b text-white bg-gray-800 px-6 py-4">
             <nav className="mx-auto flex w-full  items-center justify-between">
