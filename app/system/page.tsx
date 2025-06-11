@@ -1,5 +1,5 @@
 import { getSystemData } from '@/app/api/system/system'
-import SystemItem from '@/app/components/systems/SystemItem'
+import SystemItems from '@/app/components/systems/SystemItems'
 import { getMessage } from '@/app/utils/messages';
 
 export default async function SystemPage() {
@@ -12,7 +12,7 @@ export default async function SystemPage() {
                 <div className="mx-auto">
                     <div className="flex flex-wrap -m-4">
                         {data.map((item) => (
-                            <SystemItem key={item.id} data={item} />
+                            <SystemItems key={item.id} data={item} />
                         ))}
                     </div>
                 </div>
