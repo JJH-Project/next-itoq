@@ -69,7 +69,6 @@ export default function UserForm({
             return;
         }
         if (password && isCreate) {
-            console.log(password);
             const passwordRule =
                 /^(?=.*[a-zA-Z])(?=.*[\d\W_]).{8,}$/;
         
