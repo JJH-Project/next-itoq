@@ -1,6 +1,6 @@
-import { getSystemData } from '@/app/api/system/system'
-import SystemItems from '@/app/components/systems/SystemItems'
-import { getMessage } from '@/app/utils/messages';
+import { getSystemData } from '../api/system/system'
+import SystemItems from '../components/systems/SystemItems'
+import { getMessage } from '../utils/messages';
 
 export default async function SystemPage() {
     const data = await getSystemData();
