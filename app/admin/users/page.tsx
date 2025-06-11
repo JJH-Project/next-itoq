@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import UserListItem from '@/app/components/users/UserListItem'
 import { getMessage } from '@/app/utils/messages'
 
-export default async function AdminUserPage() {
+export default async function getServerSideProps() {
     // get data from notion
     const data = await getUserData();
     
