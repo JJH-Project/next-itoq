@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMessage } from "../utils/messages";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -113,6 +114,12 @@ export default function LoginPage() {
                         </button>
                     </div>
                 </form>
+                <div className=" font-medium text-gray-500 dark:text-gray-300">
+                    Not registered? 
+                    <Link href="/register" className="ml-4 text-blue-700 hover:underline dark:text-blue-800">
+                        {getMessage('common.createAccount')}
+                    </Link>
+                </div>            
             </div>
         </div>
     );

@@ -71,6 +71,9 @@
         "successSend": "送信されました",
         "errorTitle": "Error!",
         "errorFetch": "ユーザー情報の取得に失敗しました",
-        "register": "登録"
+        "register": "登録",
+        "successRegister": "登録されました",
+        "createAccount": "アカウント登録",
+        "accountSending": "登録中..."
     }
 }

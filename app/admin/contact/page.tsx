@@ -22,7 +22,7 @@ export default async function AdminContactPage() {
 
     return (
         <div className="w-full  mx-auto">
-            <h1 className="text-2xl font-bold mb-8">{getMessage('common.contact')}</h1>
+            <h1 className="text-2xl font-bold mb-8">{getMessage('common.contacts')}</h1>
 
             <div className="mb-4">
                 <div className="overflow-x-auto">

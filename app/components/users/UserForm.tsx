@@ -130,85 +130,86 @@ export default function UserForm({
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto">
-            <div className="relative mb-4">
-                <div className="leading-7 text-gray-800 font-bold mb-2">
-                    {getMessage('common.email')}
-                    <span className="text-red-500 text-xl"> *</span>
-                </div>
-                {!isAccount && <input
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    disabled={isEdit}
-                />}
-                {isAccount && <p className="text-gray-800 pb-6 border-b">{email}</p>}
-                {emailError && (
-                    <p className="mt-1 text-red-500">{emailError}</p>
-                )}
-            </div>
-            <div className="relative mb-4">
-                <div className="leading-7 text-gray-800 font-bold mb-2">
-                    {getMessage('common.name')}
-                    <span className="text-red-500 text-xl"> *</span>
-                </div>
-                <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={handleNameChange}
-                    className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                {nameError && (
-                    <p className="mt-1 text-red-500">{nameError}</p>
-                )}
-            </div>
-            {isCreate && (
+            <div className="border-gray-200 rounded-lg shadow-sm bg-gray-50 p-8">
                 <div className="relative mb-4">
                     <div className="leading-7 text-gray-800 font-bold mb-2">
-                        {getMessage('common.password')}
+                        {getMessage('common.email')}
+                        <span className="text-red-500 text-xl"> *</span>
+                    </div>
+                    {!isAccount && <input
+                        type="text"
+                        name="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={isEdit}
+                    />}
+                    {isAccount && <p className="text-gray-800 pb-6 border-b">{email}</p>}
+                    {emailError && (
+                        <p className="mt-1 text-red-500">{emailError}</p>
+                    )}
+                </div>
+                <div className="relative mb-4">
+                    <div className="leading-7 text-gray-800 font-bold mb-2">
+                        {getMessage('common.name')}
                         <span className="text-red-500 text-xl"> *</span>
                     </div>
                     <input
                         type="text"
-                        name="password"
-                        value={password}
-                        onChange={handlePasswordChange}
+                        name="name"
+                        value={name}
+                        onChange={handleNameChange}
                         className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    {passwordError && (
-                        <p className="mt-1 text-red-500">{passwordError}</p>
+                    {nameError && (
+                        <p className="mt-1 text-red-500">{nameError}</p>
                     )}
                 </div>
-            )}
-            <div className="relative mb-4">
-                <div className="leading-7 text-gray-800 font-bold mb-2">
-                    {getMessage('common.role')}
-                    <span className="text-red-500 text-xl"> *</span>
+                {isCreate && (
+                    <div className="relative mb-4">
+                        <div className="leading-7 text-gray-800 font-bold mb-2">
+                            {getMessage('common.password')}
+                            <span className="text-red-500 text-xl"> *</span>
+                        </div>
+                        <input
+                            type="text"
+                            name="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {passwordError && (
+                            <p className="mt-1 text-red-500">{passwordError}</p>
+                        )}
+                    </div>
+                )}
+                <div className="relative mb-4">
+                    <div className="leading-7 text-gray-800 font-bold mb-2">
+                        {getMessage('common.role')}
+                        <span className="text-red-500 text-xl"> *</span>
+                    </div>
+                    {!isAccount && (
+                        <select
+                            name="role"
+                            value={role}
+                            onChange={handleRoleChange}
+                            className="w-full p-4  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            {Object.entries(ROLE_NAME).map(([key, label]) => (
+                                <option key={key} value={key}>
+                                    {label}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                    {isAccount && (
+                        <p className="text-gray-800 pb-6 ">{ROLE_NAME[role as keyof typeof ROLE_NAME]}</p>
+                    )}
+                    {roleError && (
+                        <p className="mt-1 text-red-500">{roleError}</p>
+                    )}
                 </div>
-                {!isAccount && (
-                    <select
-                        name="role"
-                        value={role}
-                        onChange={handleRoleChange}
-                        className="w-full p-4  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        {Object.entries(ROLE_NAME).map(([key, label]) => (
-                            <option key={key} value={key}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-                )}
-                {isAccount && (
-                    <p className="text-gray-800 pb-6 border-b">{ROLE_NAME[role as keyof typeof ROLE_NAME]}</p>
-                )}
-                {roleError && (
-                    <p className="mt-1 text-red-500">{roleError}</p>
-                )}
             </div>
-
             <div className="flex justify-end space-x-4 w-full sm:w-1/2 mx-auto">
                 <button
                     type="button"

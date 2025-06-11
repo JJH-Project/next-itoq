@@ -106,7 +106,7 @@ export default function Header() {
                                             className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
                                             onClick={() => setIsAdminOpen(false)}
                                         >
-                                            {getMessage('common.contact')}
+                                            {getMessage('common.contacts')}
                                         </Link>
                                     </div>
                                 </div>
@@ -115,14 +115,9 @@ export default function Header() {
                     )}
 
                     {!session && (
-                        <>
-                            <Link href="/login" className="inline-block py-1 px-2 rounded-full bg-white text-gray-600">
-                            {getMessage('common.login')}
-                            </Link>
-                            <Link href="/register" className="inline-block py-1 px-2 rounded-full bg-white text-gray-600">
-                            {getMessage('common.register')}
-                            </Link>
-                        </>
+                        <Link href="/login" className="inline-block py-1 px-3 rounded-full bg-white text-gray-600">
+                        {getMessage('common.login')}
+                        </Link>
                     )}
                     {session && (
                         <button className="inline-block py-1 px-2 rounded-full bg-white text-gray-600" onClick={() => signOut({ callbackUrl: '/login' })}  >
@@ -179,21 +174,13 @@ export default function Header() {
                             </div>
                         </div>
                     )}
-                        {!session && (
-                            <>
-                                <Link 
-                                    onClick={() => setIsMenuOpen(false)}
-                                    href="/login" 
-                                    className="inline-block text-center w-full sm:w-[300px] mx-auto py-1 px-2 rounded-full bg-white text-gray-600">
-                                    {getMessage('common.login')}
-                                </Link>
-                                <Link 
-                                    onClick={() => setIsMenuOpen(false)}
-                                    href="/register" 
-                                    className="inline-block text-center w-full sm:w-[300px] mx-auto py-1 px-2 rounded-full bg-white text-gray-600">
-                                    {getMessage('common.register')}
-                                </Link>
-                            </>
+                    {!session && (
+                        <Link 
+                            onClick={() => setIsMenuOpen(false)}
+                            href="/login" 
+                            className="inline-block text-center w-full sm:w-[300px] mx-auto py-1 px-3 rounded-full bg-white text-gray-600">
+                            {getMessage('common.login')}
+                        </Link>
                     )}
                     {session && (
                         <button className="inline-block w-full sm:w-[300px] mx-auto py-1 px-2 rounded-full bg-white text-gray-600" onClick={() => signOut({ callbackUrl: '/login' })}  >

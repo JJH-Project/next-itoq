@@ -9,6 +9,8 @@ export default function RegisterPage() {
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,6 +19,10 @@ export default function RegisterPage() {
         const password = formData.get("password") as string;
         const name = formData.get("name") as string;
         const role = "user" as string;
+
+        setPasswordError('');
+        setEmailError('');
+        setError('');
 
         const checkEmailUnique = async () => {
             try {
@@ -34,11 +40,25 @@ export default function RegisterPage() {
         if (!isUnique) {
             setEmailError(getMessage('validation.email.unique'));
             return;
-        } else {
-            setEmailError('');
+        }
+
+        if (password && password.trim() === '') {
+            setPasswordError(getMessage('validation.password.required'));
+            return;
+        }
+
+        if (password) {
+            const passwordRule = /^(?=.*[a-zA-Z])(?=.*[\d\W_]).{8,}$/;
+        
+            if (!passwordRule.test(password)) {
+                setPasswordError(getMessage('validation.password.rule')); 
+                return;
+            }
         }
 
         try {
+            setIsSubmitting(true);
+
             const response = await fetch("/api/register", {
                 method: "POST",
                 headers: {
@@ -48,6 +68,7 @@ export default function RegisterPage() {
             });
 
             const data = await response.json();
+            setIsSubmitting(false);
 
             if (!response.ok) {
                 Swal.fire({
@@ -63,7 +84,7 @@ export default function RegisterPage() {
 
             Swal.fire({
                 title: getMessage('common.successTitle'),
-                text: getMessage('common.success'),
+                text: getMessage('common.successRegister'),
                 icon: 'success',
                 confirmButtonText: getMessage('common.successConfirmButtonText'),
                 customClass: {
@@ -81,6 +102,8 @@ export default function RegisterPage() {
             } else {
                 setError(getMessage('common.error'));
             }
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -137,14 +160,18 @@ export default function RegisterPage() {
                             placeholder={getMessage('common.password')}
                         />
                         </div>
+                        {passwordError && (
+                            <p className="mt-1 text-red-500">{passwordError}</p>
+                        )}
                     </div>
 
                     <div>
                         <button
                         type="submit"
-                        className="group relative w-full flex justify-center bg-gray-800 text-white px-6 py-3 rounded hover:bg-opacity-90"
+                            disabled={isSubmitting}
+                            className="group relative w-full flex justify-center bg-gray-800 text-white px-6 py-3 rounded hover:bg-opacity-90"
                         >
-                            {getMessage('common.register')}
+                            {isSubmitting ? getMessage('common.accountSending') : getMessage('common.register')}
                         </button>
                     </div>
                 </form>
