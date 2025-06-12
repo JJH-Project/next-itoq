@@ -11,8 +11,9 @@ export default async function Home() {
 
     return (
         <div>
-            <div className="my-8 flex flex-row items-center justify-center">
-                <div className="w-1/2">
+            <div className="my-8 flex flex-col items-center justify-center">
+                <h2 className="text-2xl font-bold">お問い合せの種類</h2>
+                <div className="w-1/3">
                     <ChartComponent labels={labels} values={values} />
                 </div>
             </div>
