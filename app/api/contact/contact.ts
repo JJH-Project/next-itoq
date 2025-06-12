@@ -141,6 +141,7 @@ export async function getContactById(id: string) {
     }
 }
 
+// get contact chart
 export async function getContactChart() {
     const data = await getContactData();
     const resetData = Object.fromEntries(Object.keys(FORM_TITLE).map((key) => [key, 0]));
