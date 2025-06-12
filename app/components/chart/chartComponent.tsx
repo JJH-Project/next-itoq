@@ -28,25 +28,9 @@ export default function ChartComponent({ labels, values }: ChartComponentProps) 
     };
     const options = {
         plugins: {
-            tooltip: {
-                enabled: true,
-                callbacks: {
-                    label: (context: any) => {
-                        const label = context.label;
-                        const value = context.dataset.data[context.dataIndex];
-                        return `${label} : ${value}%`;
-                    },
-                },
-            },
+            // tooltid
             legend: { display: true, position: 'right' },
-            datalabels: {
-                formatter: (value: any, context: any) => {
-                    const label = pieChartData.labels[context.dataIndex];
-                    return `${label} : ${value}%`;
-                },
-                display: 'auto',
-            },
         },
     };
-    return <Pie data={pieChartData} options={options} />;
+    return <Pie data={pieChartData} options={options as any} />;
 }
