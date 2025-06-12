@@ -12,18 +12,17 @@ export default async function Home() {
     console.log(values);
     return (
         <div>
-            <div className="my-8 flex flex-col items-center justify-center">
-                <h2 className="text-2xl font-bold">お問い合せの種類</h2>
-                <div className="w-full lg:w-1/3">
-                    <ChartComponent labels={labels} values={values} />
-                </div>
-            </div>
-
             <img
                 src="/images/fv01.webp"
                 alt="itoq"
                 className="m-auto h-auto w-full object-cover p-2 md:w-[70%]"
-            />
+            />{' '}
+            <div className="my-8 flex flex-col items-center justify-center">
+                <h2 className="text-2xl font-bold">お問い合せの種類</h2>
+                <div className="w-full md:w-1/2 lg:w-1/4">
+                    <ChartComponent labels={labels} values={values} />
+                </div>
+            </div>
         </div>
     );
 }
