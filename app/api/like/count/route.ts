@@ -18,5 +18,5 @@ export async function GET(req: Request) {
             rich_text: { equals: systemId! },
         },
     });
-    return NextResponse.json({ count: res.results.length });
+    return NextResponse.json({ count: res.results.length || 0, success: true });
 }

@@ -16,6 +16,9 @@ export default function Like({ systemId }: { systemId: string }) {
             .then((res) => res.json())
             .then((data) => {
                 setCount(data.count || 0);
+            })
+            .catch((error) => {
+                console.error(error);
             });
     }, [systemId]);
 
