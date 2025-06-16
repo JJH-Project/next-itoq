@@ -1,4 +1,5 @@
 import { SystemPage } from '@/app/types/system';
+import Like from '../common/like';
 
 interface SystemItemProps {
     data: SystemPage;
@@ -10,22 +11,17 @@ export default function SystemItems({ data }: SystemItemProps) {
     const imgSrc = data.properties.image?.rich_text?.[0]?.plain_text || '';
 
     return (
-        <div className="xl:w-1/4 lg:w-1/3 md:w-1/2 sm:w-full p-4">
-            <div className="bg-gray-100 p-6 rounded-lg">
-                <div className="relative h-40 w-full mb-6">
-                    <img
-                        src={imgSrc}
-                        alt={title}
-                        className="rounded object-cover w-full h-full"
-                    />
+        <div className="p-4 sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+            <div className="rounded-lg bg-gray-100 p-6">
+                <div className="relative mb-6 h-40 w-full">
+                    <img src={imgSrc} alt={title} className="h-full w-full rounded object-cover" />
                 </div>
-                <h2 className="tracking-widest text-indigo-500 text-lg font-medium title-font pb-4 font-bold">
+                <h2 className="title-font pb-4 text-lg font-bold font-medium tracking-widest text-indigo-500">
                     {title}
                 </h2>
-                <p className="leading-relaxed text-base whitespace-pre-line">
-                    {contents}
-                </p>
+                <p className="whitespace-pre-line text-base leading-relaxed">{contents}</p>
+                <Like systemId={data.id} />
             </div>
         </div>
-    )
+    );
 }

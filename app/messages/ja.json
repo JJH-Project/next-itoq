@@ -13,7 +13,7 @@
             "required": "メールアドレスを入力してください",
             "unique": "このメールアドレスはすでに使用されています"
         },
-        "role":  {
+        "role": {
             "required": "権限を選択してください"
         },
         "password": {
@@ -26,7 +26,8 @@
         "formTitle": {
             "required": "お問い合わせ種別を選択してください"
         },
-        "notAuthorized": "ユーザー情報が一致しません"
+        "notAuthorized": "ユーザー情報が一致しません",
+        "notAuthorizedTitle": "ログインが必要です"
     },
     "common": {
         "submit": "送信",
