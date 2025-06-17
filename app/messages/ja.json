@@ -58,6 +58,7 @@
         "error": "エラーが発生しました",
         "success": "送信が完了しました",
         "failed": "送信に失敗しました",
+        "errorSave": "保存に失敗しました",
         "contactSuccess": "お問い合わせが完了しました",
         "contactFailed": "お問い合わせに失敗しました",
         "formTitle": "お問い合わせ種別",
@@ -75,6 +76,7 @@
         "register": "登録",
         "successRegister": "登録されました",
         "createAccount": "アカウント登録",
-        "accountSending": "登録中..."
+        "accountSending": "登録中...",
+        "news": "お知らせ"
     }
 }

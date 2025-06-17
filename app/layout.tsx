@@ -1,11 +1,11 @@
 'use client';
 
-import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from 'next-auth/react';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -17,11 +17,6 @@ const geistMono = Geist_Mono({
     subsets: ['latin'],
 });
 
-// export const metadata: Metadata = {
-//     title: 'My itoq',
-//     description: 'My itoq',
-// };
-
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -29,17 +24,15 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-            <SessionProvider>
-                <div className="flex flex-col min-h-screen">
-                    <Header />
-                    <main className="flex-grow p-8 ">
-                        {children}
-                    </main>
-                    <Footer />
-                </div>
-            </SessionProvider>
-        </body>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <SessionProvider>
+                    <div className="flex min-h-screen flex-col">
+                        <Header />
+                        <main className="flex-grow p-8">{children}</main>
+                        <Footer />
+                    </div>
+                </SessionProvider>
+            </body>
         </html>
     );
 }

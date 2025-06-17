@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { getMessage } from '@/app/utils/messages';
-import { useState, useRef } from 'react'
+import { useState, useRef } from 'react';
 
 interface ImageUploadProps {
     onImageSelect: (file: File | null) => void;
@@ -9,51 +9,49 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload({ onImageSelect, currentImageUrl }: ImageUploadProps) {
-    const [preview, setPreview] = useState<string | null>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
+    const [preview, setPreview] = useState<string | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
+        const file = e.target.files?.[0];
 
         if (file) {
-            const reader = new FileReader()
+            const reader = new FileReader();
             reader.onloadend = () => {
-                setPreview(reader.result as string)
-            }
-            reader.readAsDataURL(file)
-            onImageSelect(file)
+                setPreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+            onImageSelect(file);
         } else {
-            setPreview(null)
-            onImageSelect(null)
+            setPreview(null);
+            onImageSelect(null);
         }
-    }
+    };
 
     const handleDeleteImage = () => {
-        console.log('handleDeleteImage')
-        setPreview(null)
-        onImageSelect(null)
+        console.log('handleDeleteImage');
+        setPreview(null);
+        onImageSelect(null);
         if (inputRef.current) {
-            inputRef.current.value = ''
+            inputRef.current.value = '';
         }
-    }
+    };
 
     return (
         <div className="mb-4">
-            <div className="block text-gray-800 font-bold mb-2">
-                {getMessage('common.image')}
-            </div>
+            <div className="mb-2 block font-bold text-gray-800">{getMessage('common.image')}</div>
             <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 ref={inputRef}
-                className="w-full bg-white rounded focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out mb-2"
+                className="mb-2 w-full rounded bg-white text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             />
             {currentImageUrl && (
                 <div className="mb-4">
-                    <div className="w-auto relative">
-                        <img 
-                            src={currentImageUrl} 
-                            alt="Current system image" 
+                    <div className="relative w-auto">
+                        <img
+                            src={currentImageUrl}
+                            alt="Current news image"
                             className="max-w-xs rounded-lg shadow-md"
                         />
                     </div>
@@ -62,14 +60,15 @@ export default function ImageUpload({ onImageSelect, currentImageUrl }: ImageUpl
 
             {preview && (
                 <div className="mt-4">
-                    <span className="bg-red-500 rounded-full text-white px-2 py-1 text-sm -mb-2" onClick={handleDeleteImage}>X</span>
-                    <img
-                        src={preview}
-                        alt="Preview"
-                        className="max-w-xs rounded-lg shadow-md"
-                    />
+                    <span
+                        className="-mb-2 rounded-full bg-red-500 px-2 py-1 text-sm text-white"
+                        onClick={handleDeleteImage}
+                    >
+                        X
+                    </span>
+                    <img src={preview} alt="Preview" className="max-w-xs rounded-lg shadow-md" />
                 </div>
             )}
         </div>
-    )
-} 
+    );
+}

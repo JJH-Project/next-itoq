@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --i-color: #152DE6;
+    --i-color: #152de6;
 }
-
 @layer components {
     .i-color {
         color: var(--i-color);

@@ -8,8 +8,7 @@ export default async function Home() {
     const data = await getContactChart();
     const labels = data.map((item) => FORM_TITLE[item.label as keyof typeof FORM_TITLE]);
     const values = data.map((item) => item.value);
-    console.log(labels);
-    console.log(values);
+
     return (
         <div>
             <img
