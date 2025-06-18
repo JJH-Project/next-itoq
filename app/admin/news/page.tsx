@@ -44,9 +44,6 @@ export default async function AdminNewsPage() {
                                 <th className="border border-gray-300 bg-gray-100 p-4 text-left font-semibold text-gray-900 dark:text-gray-200">
                                     Contents
                                 </th>
-                                <th className="border border-gray-300 bg-gray-100 p-4 text-left font-semibold text-gray-900 dark:text-gray-200">
-                                    Image
-                                </th>
                                 <th className="w-1/6 border border-gray-300 bg-gray-100 p-4 text-left font-semibold text-gray-900 dark:text-gray-200"></th>
                             </tr>
                         </thead>
