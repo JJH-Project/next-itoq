@@ -29,10 +29,10 @@ export async function getNewsData() {
             if ('properties' in page) {
                 return {
                     id: page.id || null,
-                    title: page.properties.title.title[0].plain_text || null,
-                    contents: page.properties.contents.rich_text[0].plain_text || null,
+                    title: (page.properties.title as any).title[0].plain_text || null,
+                    contents: (page.properties.contents as any).rich_text[0].plain_text || null,
                     // image: page.properties.image.url || null,
-                    created_at: page.properties.created_at.date.start || null,
+                    created_at: (page.properties.created_at as any).date.start || null,
                 } as NewsPage;
             }
         });
@@ -148,10 +148,10 @@ export async function getNewsById(id: string) {
         if ('properties' in response) {
             return {
                 id: response.id,
-                title: response.properties.title.title[0].plain_text || null,
-                contents: response.properties.contents.rich_text[0].plain_text || null,
+                title: (response.properties.title as any).title[0].plain_text || null,
+                contents: (response.properties.contents as any).rich_text[0].plain_text || null,
                 // image: response.properties.image.url || null,
-                created_at: response.properties.created_at.date.start || null,
+                created_at: (response.properties.created_at as any).date.start || null,
             } as NewsPage;
             //     properties: {
             //         title: response.properties.title as NewsPage['properties']['title'],
