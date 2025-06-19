@@ -2,8 +2,9 @@ import { getBlogById } from '@/app/api/blog/blog';
 import { getMessage } from '@/app/utils/messages';
 import BlogViewComponent from '@/app/components/blog/BlogViewComponent';
 
-export default async function BlogViewPage({ params }: { params: { id: string } }) {
-    const blog = await getBlogById(params.id);
+export default async function BlogViewPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const blog = await getBlogById(id);
 
     return (
         <div className="mx-auto w-full">
