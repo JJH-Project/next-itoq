@@ -1,14 +1,12 @@
 'use client';
 
-import { useRef, useState } from 'react';
 import { getMessage } from '@/app/utils/messages';
 import EditorComponent from '@/app/components/common/EditorComponent';
-import { Editor } from '@toast-ui/react-editor';
+import { useState } from 'react';
 
 interface BlogFormProps {
     initialTitle?: string;
     initialContents?: string;
-    // initialImageUrl?: string | null;
     isSubmitting: boolean;
     onSubmit: (formData: FormData) => Promise<void>;
     onCancel: () => void;
@@ -17,21 +15,14 @@ interface BlogFormProps {
 export default function BlogForm({
     initialTitle = '',
     initialContents = ' ',
-    // initialImageUrl = null,
     isSubmitting,
     onSubmit,
     onCancel,
 }: BlogFormProps) {
     const [title, setTitle] = useState(initialTitle);
     const [contents, setContents] = useState(initialContents);
-    // const [image, setImage] = useState<File | null>(null);
-    // const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(initialImageUrl);
     const [titleError, setTitleError] = useState<string | null>(null);
     const [contentsError, setContentsError] = useState<string | null>(null);
-    // const editorRef = useRef<Editor>(null);
-    // const handleImageSelect = (file: File | null) => {
-    //     setImage(file);
-    // };
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -46,24 +37,10 @@ export default function BlogForm({
             setContentsError(getMessage('validation.contents.required'));
             return;
         }
-        // if (editorRef.current) {
-        //     console.log('2');
-        //     const editorInstance = editorRef.current.getInstance();
-        //     const content = editorInstance.getHTML();
-        //     if (!content || content === '<p><br></p>') {
-        //         setContentsError(getMessage('validation.contents.required'));
-        //         return;
-        //     }
-        //     setContents(content);
-        // }
 
         const formData = new FormData();
         formData.append('title', title);
         formData.append('contents', contents);
-        // onSubmit(formData);
-        // if (image) {
-        //     formData.append('image', image);
-        // }
 
         await onSubmit(formData);
     };
@@ -76,30 +53,8 @@ export default function BlogForm({
 
     const handleEditorChange = (content: string) => {
         setContents(content);
-        // if (!content || content.trim() === '') {
-        //     setContentsError(getMessage('validation.contents.required'));
-        // } else {
         setContentsError(null);
-        // }
     };
-
-    // const onChange = () => {
-    //     if (editorRef.current) {
-    //         const editorInstance = editorRef.current.getInstance();
-    //         const markdownContent = editorInstance.getMarkdown();
-    //         // Handle the markdown content
-    //         console.log('markdownContent', markdownContent);
-    //     }
-    // };
-
-    // const handleContentsChange = () => {
-    //     if (editorRef.current) {
-    //         const editorInstance = editorRef.current.getInstance();
-    //         const markdownContent = editorInstance.getMarkdown();
-    //         // Handle the markdown content
-    //         console.log('markdownContent', markdownContent);
-    //     }
-    // };
 
     return (
         <div className="mx-auto w-full space-y-6 md:w-3/4 lg:w-2/3 xl:w-1/2">
@@ -138,21 +93,6 @@ export default function BlogForm({
                 <button
                     type="button"
                     disabled={isSubmitting || !!titleError || !!contentsError}
-                    // onClick={(e) => {
-                    //     e.preventDefault();
-                    //     if (!title) {
-                    //         setTitleError(getMessage('validation.title.required'));
-                    //         return;
-                    //     }
-                    //     if (!contents || contents.trim() === '') {
-                    //         setContentsError(getMessage('validation.contents.required'));
-                    //         return;
-                    //     }
-                    //     const formData = new FormData();
-                    //     formData.append('title', title);
-                    //     formData.append('contents', contents);
-                    //     onSubmit(formData);
-                    // }}
                     onClick={handleSubmit}
                     className="w-full rounded bg-gray-800 px-6 py-3 text-white hover:bg-gray-600 disabled:opacity-50"
                 >

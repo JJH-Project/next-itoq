@@ -15,7 +15,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
     const [initialData, setInitialData] = useState({
         name: '',
         email: '',
-        role: ''
+        role: '',
     });
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
                 setInitialData({
                     name: user.properties.name.title[0]?.plain_text || '',
                     email: user.properties.email.email || '',
-                    role: user.properties.role.rich_text[0]?.plain_text || ''
+                    role: user.properties.role.rich_text[0]?.plain_text || '',
                 });
             } catch (error) {
                 Swal.fire({
@@ -87,14 +87,14 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
 
     if (isLoading) {
         return (
-            <div className="w-full  mx-auto p-8">
+            <div className="mx-auto w-full p-8">
                 <div className="animate-pulse">
-                    <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
+                    <div className="mb-8 h-8 w-1/4 rounded bg-gray-200"></div>
                     <div className="space-y-6">
-                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                        <div className="h-10 bg-gray-200 rounded"></div>
-                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                        <div className="h-32 bg-gray-200 rounded"></div>
+                        <div className="h-4 w-1/4 rounded bg-gray-200"></div>
+                        <div className="h-10 rounded bg-gray-200"></div>
+                        <div className="h-4 w-1/4 rounded bg-gray-200"></div>
+                        <div className="h-32 rounded bg-gray-200"></div>
                     </div>
                 </div>
             </div>
@@ -102,8 +102,8 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
     }
 
     return (
-        <div className="w-full  mx-auto">
-            <h1 className="text-2xl font-bold mb-8">{getMessage('common.user')}編集</h1>
+        <div className="mx-auto w-full">
+            <h1 className="mb-8 text-2xl font-bold">{getMessage('common.user')}編集</h1>
             <UserForm
                 initialName={initialData.name}
                 initialEmail={initialData.email}
@@ -115,4 +115,4 @@ export default function AdminUserEditPage({ params }: { params: Promise<{ id: st
             />
         </div>
     );
-} 
+}

@@ -78,6 +78,11 @@
         "createAccount": "アカウント登録",
         "accountSending": "登録中...",
         "news": "お知らせ",
-        "blog": "ブログ"
+        "blog": "ブログ",
+        "download": "ダウンロード",
+        "downloading": "ダウンロード中...",
+        "preview": "プレビュー",
+        "close": "閉じる",
+        "print": "印刷"
     }
 }
