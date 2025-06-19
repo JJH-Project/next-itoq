@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { getMessage } from '@/app/utils/messages';
 
 // get likes count from notion
-export default function Like({ systemId }: { systemId: string }) {
+export default function LikeComponent({ systemId }: { systemId: string }) {
     const [liked, setLiked] = useState(false);
     const [count, setCount] = useState(0);
     const { data: session } = useSession();

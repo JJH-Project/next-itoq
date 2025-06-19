@@ -51,7 +51,7 @@ export default function ImageUpload({ onImageSelect, currentImageUrl }: ImageUpl
                     <div className="relative w-auto">
                         <img
                             src={currentImageUrl}
-                            alt="Current news image"
+                            alt="Current system image"
                             className="max-w-xs rounded-lg shadow-md"
                         />
                     </div>

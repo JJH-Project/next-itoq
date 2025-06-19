@@ -1,15 +1,14 @@
 'use client';
 
-import { Viewer } from '@toast-ui/react-editor';
 import dynamic from 'next/dynamic';
-import { Scope_One } from 'next/font/google';
 import Link from 'next/link';
+import LikeComponent from '../common/LikeComponent';
 
 const ToastViewer = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Viewer), {
     ssr: false,
 });
 
-export default function NewsItems({ data }: { data: any }) {
+export default function BlogItems({ data }: { data: any }) {
     return (
         <div className="p-4 sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
             <div className="relative h-full overflow-hidden rounded-lg bg-gray-100 bg-opacity-75 px-8 py-16 text-center">
@@ -23,8 +22,8 @@ export default function NewsItems({ data }: { data: any }) {
                     <ToastViewer initialValue={data.contents} />
                 </div>
                 <Link
-                    href={`/news/${data.id}`}
-                    className="inline-flex items-center text-indigo-500"
+                    href={`/blog/${data.id}`}
+                    className="mb-8 inline-flex items-center text-indigo-500"
                 >
                     Learn More
                     <svg
@@ -40,6 +39,7 @@ export default function NewsItems({ data }: { data: any }) {
                         <path d="M12 5l7 7-7 7"></path>
                     </svg>
                 </Link>
+                <LikeComponent systemId={data.id} />
             </div>
             <style jsx>{`
                 .whitespace-pre-wrap {

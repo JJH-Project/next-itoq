@@ -1,20 +1,20 @@
 'use client';
 
-import { NewsPage } from '@/app/types/news';
+import { BlogPage } from '@/app/types/blog';
 import { getMessage } from '@/app/utils/messages';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 
-interface NewsListItemProps {
-    item: NewsPage;
+interface BlogListItemProps {
+    item: BlogPage;
     onDelete: (id: string) => Promise<{ success: boolean } | { error: string }>;
 }
 
-export default function NewsListItem({ item, onDelete }: NewsListItemProps) {
+export default function BlogListItem({ item, onDelete }: BlogListItemProps) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
 
-    // delete news
+    // delete blog
     const handleDelete = () => {
         startTransition(async () => {
             const result = await onDelete(item.id);
@@ -39,7 +39,7 @@ export default function NewsListItem({ item, onDelete }: NewsListItemProps) {
             <td className="text-md flex justify-center gap-2 whitespace-nowrap px-6 py-4 font-medium">
                 <button
                     className="rounded-md border border-blue-400 px-3 py-2 text-blue-600 hover:text-blue-600"
-                    onClick={() => router.push(`/admin/news/${item.id}/edit`)}
+                    onClick={() => router.push(`/admin/blog/${item.id}/edit`)}
                 >
                     {getMessage('common.edit')}
                 </button>

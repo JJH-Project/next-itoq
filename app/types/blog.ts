@@ -1,4 +1,4 @@
-export interface NewsPage {
+export interface BlogPage {
     id: string;
     title: string;
     contents: string;

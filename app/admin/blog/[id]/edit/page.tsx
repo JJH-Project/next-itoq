@@ -3,11 +3,11 @@
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMessage } from '@/app/utils/messages';
-import { getNewsById, updateNews } from '@/app/api/news/news';
-import NewsForm from '@/app/components/news/NewsForm';
+import { getBlogById, updateBlog } from '@/app/api/blog/blog';
+import BlogForm from '@/app/components/blog/BlogForm';
 import Swal from 'sweetalert2';
 
-export default function AdminNewsEditPage({ params }: { params: Promise<{ id: string }> }) {
+export default function AdminBlogEditPage({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { id } = use(params);
@@ -19,30 +19,28 @@ export default function AdminNewsEditPage({ params }: { params: Promise<{ id: st
     });
 
     useEffect(() => {
-        const fetchNewsData = async () => {
+        const fetchBlogData = async () => {
             try {
-                const news = await getNewsById(id);
+                const blog = await getBlogById(id);
                 setInitialData({
-                    title: news.title || '',
-                    contents: news.contents || '',
-                    // created_at: news.created_at || '',
-                    // imageUrl: news.image || null,
+                    title: blog.title || '',
+                    contents: blog.contents || '',
                 });
             } catch (error) {
-                console.error('Error fetching news:', error);
-                router.push('/admin/news');
+                console.error('Error fetching blog:', error);
+                router.push('/admin/blog');
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchNewsData();
+        fetchBlogData();
     }, [id, router]);
 
     const handleSubmit = async (formData: FormData) => {
         setIsSubmitting(true);
         try {
-            const response = await updateNews(id, formData);
+            const response = await updateBlog(id, formData);
             if (!response.success) {
                 Swal.fire({
                     title: getMessage('common.errorTitle'),
@@ -64,11 +62,11 @@ export default function AdminNewsEditPage({ params }: { params: Promise<{ id: st
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/admin/news';
+                    window.location.href = '/admin/blog';
                 }
             });
         } catch (error) {
-            console.error('Error updating news:', error);
+            console.error('Error updating blog:', error);
         } finally {
             setIsSubmitting(false);
         }
@@ -92,8 +90,8 @@ export default function AdminNewsEditPage({ params }: { params: Promise<{ id: st
 
     return (
         <div className="mx-auto w-full">
-            <h1 className="mb-8 text-2xl font-bold">{getMessage('common.news')}編集</h1>
-            <NewsForm
+            <h1 className="mb-8 text-2xl font-bold">{getMessage('common.blog')}編集</h1>
+            <BlogForm
                 initialTitle={initialData.title}
                 initialContents={initialData.contents}
                 // initialImageUrl={initialData.imageUrl}

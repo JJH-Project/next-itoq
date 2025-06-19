@@ -1,5 +1,5 @@
 import { SystemPage } from '@/app/types/system';
-import Like from '../common/like';
+import LikeComponent from '../common/LikeComponent';
 
 interface SystemItemProps {
     data: SystemPage;
@@ -20,7 +20,6 @@ export default function SystemItems({ data }: SystemItemProps) {
                     {title}
                 </h2>
                 <p className="whitespace-pre-line text-base leading-relaxed">{contents}</p>
-                <Like systemId={data.id} />
             </div>
         </div>
     );

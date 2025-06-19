@@ -1,20 +1,20 @@
-import { getNewsData, deleteNewsData } from '@/app/api/news/news';
+import { getBlogData, deleteBlogData } from '@/app/api/blog/blog';
 import Link from 'next/link';
-import type { NewsPage } from '@/app/types/news';
+import type { BlogPage } from '@/app/types/blog';
 import { revalidatePath } from 'next/cache';
-import NewsListItem from '@/app/components/news/NewsListItem';
+import BlogListItem from '@/app/components/blog/BlogListItem';
 import { getMessage } from '@/app/utils/messages';
 
-export default async function AdminNewsPage() {
+export default async function AdminBlogPage() {
     // get data from notion
-    const data = await getNewsData();
+    const data = await getBlogData();
 
     // delete data from notion
-    async function deleteNews(id: string) {
+    async function deleteBlog(id: string) {
         'use server';
         try {
-            await deleteNewsData(id);
-            revalidatePath('/admin/news');
+            await deleteBlogData(id);
+            revalidatePath('/admin/blog');
             return { success: true };
         } catch (error) {
             return { error: 'Failed to delete' };
@@ -23,10 +23,10 @@ export default async function AdminNewsPage() {
 
     return (
         <div className="mx-auto w-full">
-            <h1 className="mb-8 text-2xl font-bold">{getMessage('common.news')}</h1>
+            <h1 className="mb-8 text-2xl font-bold">{getMessage('common.blog')}</h1>
             <div className="my-5 flex justify-end">
                 <Link
-                    href="/admin/news/create"
+                    href="/admin/blog/create"
                     className="rounded bg-gray-800 px-6 py-3 text-white hover:bg-opacity-90"
                 >
                     {getMessage('common.create')}
@@ -49,9 +49,9 @@ export default async function AdminNewsPage() {
                         </thead>
                         <tbody className="divide-y divide-gray-200 bg-white">
                             {data
-                                .filter((item): item is NewsPage => item !== undefined)
+                                .filter((item): item is BlogPage => item !== undefined)
                                 .map((item) => (
-                                    <NewsListItem key={item.id} item={item} onDelete={deleteNews} />
+                                    <BlogListItem key={item.id} item={item} onDelete={deleteBlog} />
                                 ))}
                         </tbody>
                     </table>

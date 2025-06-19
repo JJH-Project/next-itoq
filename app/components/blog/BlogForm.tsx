@@ -5,7 +5,7 @@ import { getMessage } from '@/app/utils/messages';
 import EditorComponent from '@/app/components/common/EditorComponent';
 import { Editor } from '@toast-ui/react-editor';
 
-interface NewsFormProps {
+interface BlogFormProps {
     initialTitle?: string;
     initialContents?: string;
     // initialImageUrl?: string | null;
@@ -14,14 +14,14 @@ interface NewsFormProps {
     onCancel: () => void;
 }
 
-export default function NewsForm({
+export default function BlogForm({
     initialTitle = '',
     initialContents = ' ',
     // initialImageUrl = null,
     isSubmitting,
     onSubmit,
     onCancel,
-}: NewsFormProps) {
+}: BlogFormProps) {
     const [title, setTitle] = useState(initialTitle);
     const [contents, setContents] = useState(initialContents);
     // const [image, setImage] = useState<File | null>(null);

@@ -2,7 +2,7 @@
 
 import { Client } from '@notionhq/client';
 import { v2 as cloudinary } from 'cloudinary';
-import { NewsPage } from '@/app/types/news';
+import { BlogPage } from '@/app/types/blog';
 
 // set cloudinary
 cloudinary.config({
@@ -16,10 +16,10 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
 
-const DATABASE_ID = process.env.NOTION_NEWS_DATABASE_ID;
+const DATABASE_ID = process.env.NOTION_BLOG_DATABASE_ID;
 
-// get News data
-export async function getNewsData() {
+// get Blog data
+export async function getBlogData() {
     try {
         const response = await notion.databases.query({
             database_id: DATABASE_ID!,
@@ -33,17 +33,17 @@ export async function getNewsData() {
                     contents: (page.properties.contents as any).rich_text[0].plain_text || null,
                     // image: page.properties.image.url || null,
                     created_at: (page.properties.created_at as any).date.start || null,
-                } as NewsPage;
+                } as BlogPage;
             }
         });
     } catch (error) {
-        console.error('Error fetching News data:', error);
+        console.error('Error fetching Blog data:', error);
         return [];
     }
 }
 
-// create News
-export const createNews = async (formData: FormData) => {
+// create Blog
+export const createBlog = async (formData: FormData) => {
     try {
         console.log('title');
         const title = formData.get('title')?.toString() || '';
@@ -59,7 +59,7 @@ export const createNews = async (formData: FormData) => {
         //         cloudinary.uploader
         //             .upload_stream(
         //                 {
-        //                     folder: 'itoq/news',
+        //                     folder: 'itoq/blog',
         //                     resource_type: 'auto',
         //                 },
         //                 (error, result) => {
@@ -119,13 +119,13 @@ export const createNews = async (formData: FormData) => {
 
         return { success: true, data: response };
     } catch (error) {
-        console.error('Error creating News:', error);
+        console.error('Error creating Blog:', error);
         return { success: false, error: error };
     }
 };
 
-// delete News
-export async function deleteNewsData(id: string) {
+// delete Blog
+export async function deleteBlogData(id: string) {
     try {
         await notion.pages.update({
             page_id: id,
@@ -133,13 +133,13 @@ export async function deleteNewsData(id: string) {
         });
         return { success: true };
     } catch (error) {
-        console.error('Error deleting News:', error);
+        console.error('Error deleting Blog:', error);
         throw error;
     }
 }
 
-// get News by id
-export async function getNewsById(id: string) {
+// get Blog by id
+export async function getBlogById(id: string) {
     try {
         const response = await notion.pages.retrieve({
             page_id: id,
@@ -152,25 +152,25 @@ export async function getNewsById(id: string) {
                 contents: (response.properties.contents as any).rich_text[0].plain_text || null,
                 // image: response.properties.image.url || null,
                 created_at: (response.properties.created_at as any).date.start || null,
-            } as NewsPage;
+            } as BlogPage;
             //     properties: {
-            //         title: response.properties.title as NewsPage['properties']['title'],
-            //         contents: response.properties.contents as NewsPage['properties']['contents'],
-            //         image: response.properties.image as NewsPage['properties']['image'],
+            //         title: response.properties.title as BlogPage['properties']['title'],
+            //         contents: response.properties.contents as BlogPage['properties']['contents'],
+            //         image: response.properties.image as BlogPage['properties']['image'],
             //         created_at: response.properties
-            //             .created_at as NewsPage['properties']['created_at'],
+            //             .created_at as BlogPage['properties']['created_at'],
             //     },
             // };
         }
         throw new Error('Invalid page format');
     } catch (error) {
-        console.error('Error fetching News:', error);
+        console.error('Error fetching Blog:', error);
         throw error;
     }
 }
 
-// update News
-export async function updateNews(id: string, formData: FormData) {
+// update Blog
+export async function updateBlog(id: string, formData: FormData) {
     try {
         const title = formData.get('title')?.toString() || '';
         const contents = formData.get('contents')?.toString() || '';
@@ -241,7 +241,7 @@ export async function updateNews(id: string, formData: FormData) {
 
         return { success: true, data: response };
     } catch (error) {
-        console.error('Error updating News:', error);
-        return { success: false, error: 'Failed to update News' };
+        console.error('Error updating Blog:', error);
+        return { success: false, error: 'Failed to update Blog' };
     }
 }

@@ -49,8 +49,8 @@ export default function Header() {
                     <Link href="/system" className="hover:text-gray-300">
                         {getMessage('common.system')}
                     </Link>
-                    <Link href="/news" className="hover:text-gray-300">
-                        {getMessage('common.news')}
+                    <Link href="/blog" className="hover:text-gray-300">
+                        {getMessage('common.blog')}
                     </Link>
                     <Link href="/contact" className="hover:text-gray-300">
                         {getMessage('common.contact')}
@@ -104,11 +104,11 @@ export default function Header() {
                                             {getMessage('common.users')}
                                         </Link>
                                         <Link
-                                            href="/admin/news"
+                                            href="/admin/blog"
                                             className="text-md block px-4 py-2 text-gray-700 hover:bg-gray-100"
                                             onClick={() => setIsAdminOpen(false)}
                                         >
-                                            {getMessage('common.news')}管理
+                                            {getMessage('common.blog')}管理
                                         </Link>
                                         <Link
                                             href="/admin/contact"
@@ -153,8 +153,8 @@ export default function Header() {
                     <Link href="/system" onClick={() => setIsMenuOpen(false)}>
                         {getMessage('common.system')}
                     </Link>
-                    <Link href="/news" className="hover:text-gray-300">
-                        {getMessage('common.news')}
+                    <Link href="/blog" className="hover:text-gray-300">
+                        {getMessage('common.blog')}
                     </Link>
                     <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                         {getMessage('common.contact')}
@@ -179,11 +179,11 @@ export default function Header() {
                                     {getMessage('common.systems')}
                                 </Link>
                                 <Link
-                                    href="/admin/news"
+                                    href="/admin/blog"
                                     className="block hover:text-gray-600"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    {getMessage('common.news')}管理
+                                    {getMessage('common.blog')}管理
                                 </Link>
                                 <Link
                                     href="/admin/users"
